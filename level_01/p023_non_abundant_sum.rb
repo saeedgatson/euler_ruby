@@ -1,38 +1,30 @@
 timer_start = Time.now
 
-def proper_divisors(number)
-  divisor_array = []
-  (1..number.pred).each do |num|
-    if number % num == 0
-      divisor_array.push(num)
+def proper_divisors_sum(number)
+  return 0 if number == 1
+  sum = 1
+  sqrt = Math.sqrt(number)
+
+  (2..sqrt).each do |i|
+    if number % i == 0
+      sum += number / i if i != sqrt
+      sum += i
     end
   end
-  divisor_array
+  sum
 end
 
-def is_abundant(number)
-  divisor_array = proper_divisors(number)
-  total = divisor_array.inject(:+)
-  if number < total
-    true
-  else
-    false
-  end
+def abundant?(number)
+  number < proper_divisors_sum(number)
 end
 
-def get_abundant_under(number)
-  abundant_array = []
-  (2..number.pred).each do |num|
-    if(is_abundant(num))
-      abundant_array.push(num)
-    end
-  end
-  abundant_array
+def abundant_under(limit)
+  (1..limit).find_all { |num| abundant?(num) }
 end
 
 limit = 28123
 sum = 0
-abundant_array = get_abundant_under(limit)
+abundant_array = abundant_under(limit)
 abundant_sums = []
 
 abundant_array.each do |i|
@@ -44,5 +36,6 @@ abundant_array.each do |i|
 end
 
 not_abundant_sums = (1..limit).to_a - abundant_sums
+
 puts "The sum of all the positive integers which cannot be written as the sum of two abundant numbers is #{not_abundant_sums.inject(:+)}."
 puts "Elapsed Time: #{(Time.now - timer_start)*1.0} seconds"
