@@ -1,3 +1,5 @@
+timer_start = Time.now
+
 def proper_divisors(number)
   divisor_array = []
   (1..number.pred).each do |num|
@@ -30,26 +32,17 @@ end
 
 limit = 28123
 sum = 0
-abundant_array = get_abundant_under(150)
-puts abundant_array
-abundant_arr = []
+abundant_array = get_abundant_under(limit)
+abundant_sums = []
 
-for i in 0..abundant_array.length - 1
-  j = i + 1
-  for j in j..abundant_array.length - 1
-    sum = abundant_array[i] + abundant_array[j]
-    if sum <= limit
-      abundant_arr[sum] = true
-    else
-      break
-    end
+abundant_array.each do |i|
+  abundant_array.each do |j|
+    sum = i + j
+    break if sum > limit
+    abundant_sums.push(sum)
   end
 end
 
-for i in 0..abundant_array.length - 1
-  if abundant_arr[i] != true
-    sum += i
-  end
-end
-
-puts "The sum of all the positive integers which cannot be written as the sum of two abundant numbers is #{sum}."
+not_abundant_sums = (1..limit).to_a - abundant_sums
+puts "The sum of all the positive integers which cannot be written as the sum of two abundant numbers is #{not_abundant_sums.inject(:+)}."
+puts "Elapsed Time: #{(Time.now - timer_start)*1.0} seconds"
