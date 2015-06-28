@@ -24,7 +24,7 @@ end
 
 names_array = []
 
-File.foreach( 'names.txt' ) do |line|
+File.foreach( 'p022_names.txt' ) do |line|
   names_array = line.tr('"', '').split(",").collect(&:strip)
 end
 
