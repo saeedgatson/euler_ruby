@@ -14,7 +14,7 @@ max = 9999
   (multiplicand + 1..max).each do |multiplier|
     product = multiplicand * multiplier
     if pandigital?(multiplicand, multiplier)
-      distinct_products.add(multiplicand * multiplier)
+      distinct_products.add(product)
     elsif product > 99999999
       break
     end

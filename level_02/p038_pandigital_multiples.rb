@@ -17,7 +17,7 @@ end
 max = 9999
 largest = 1
 (1..max).each do |multiplicand|
-  product = multiplicand
+  #product = multiplicand
 
   check = get_pandigital(multiplicand)
   if  check > 0
