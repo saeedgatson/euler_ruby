@@ -15,32 +15,18 @@
 require 'mathn'
 
 n = 3
-sides = 7
-total_numbers = 12
-total_primes = 8
+total_primes = 3
+count = 5
 
-loop do
-  down_right = ((2 * n) + 1) ** 2
+while total_primes / count.to_f >= 0.10
+  n += 2
+  count += 4
+
+  down_right = n ** 2
   total_primes += 1 if down_right.prime?
-
-  down_left = down_right - 2 * n
-  total_primes += 1 if down_left.prime?
-
-  up_left = down_right - 4 * n
-  total_primes += 1 if up_left.prime?
-
-  up_right = down_right - 6 * n
-  total_primes += 1 if up_right.prime?
-
-  total_primes += 4
-
-  if total_primes.to_f / total_numbers > 0.1
-    n += 1
-    puts "Precentage is #{total_primes.to_f / total_numbers}."
-  else
-    sides = (n * 2) + 1
-    break
-  end
+  total_primes += 1 if (down_right - n + 1).prime?
+  total_primes += 1 if (down_right - 2 * n + 2).prime?
+  total_primes += 1 if (down_right - 3 * n + 3).prime?
 end
 
-puts sides
+puts "The sidelength of the spiral when the ratio falls below 10% is #{n}"
